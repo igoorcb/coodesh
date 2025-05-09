@@ -2,7 +2,9 @@ version: '3'
 
 services:
   app:
-    image: bitnami/laravel:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     volumes:
@@ -16,7 +18,7 @@ services:
       - DB_DATABASE=food_facts
       - DB_USERNAME=root
       - DB_PASSWORD=your_password
-    command: php artisan serve --host=0.0.0.0
+    command: bash -c "composer install && php artisan serve --host=0.0.0.0"
 
   db:
     image: mysql:8.0
